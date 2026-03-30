@@ -1,0 +1,16 @@
+<suite name="Suite" parallel="tests" thread-count="2">
+    <test name="Chrome">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="tests.CheckoutOneItemTest"/>
+            <class name="tests.CheckoutMultipleItemsTest"/>
+        </classes>
+    </test>
+    <test name="Firefox">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="tests.CheckoutOneItemTest"/>
+            <class name="tests.CheckoutMultipleItemsTest"/>
+        </classes>
+    </test>
+</suite>
