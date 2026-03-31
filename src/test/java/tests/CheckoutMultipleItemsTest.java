@@ -40,7 +40,6 @@ public class CheckoutMultipleItemsTest extends BaseTest {
         double actual = overview.getItemTotalValue();
 
         Assert.assertEquals(actual, expected);
-
         overview.finish();
 
         Assert.assertEquals(

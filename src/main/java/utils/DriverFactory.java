@@ -15,6 +15,8 @@ public class DriverFactory {
         } else if (browser.equalsIgnoreCase("firefox")) {
             driver.set(new FirefoxDriver());
         }
+//        TODO Can we cover flow when user provides unsupported browser? Please consider throwing exception in such case, so we can easily identify issue in test execution logs
+
     }
 
     public static WebDriver getDriver() {

@@ -67,6 +67,7 @@ Or download from [https://github.com/allure-framework/allure2/releases](https://
 
 ### Run all tests (Chrome + Firefox in parallel)
 
+[//]: # (TODO I run this command and I've got an error: Parameter 'browser' is required by BeforeMethod on method setUp but has not been marked @Optional or defined)
 ```bash
 mvn clean test
 ```
