@@ -12,6 +12,9 @@ public class CartPage {
     }
 
     public boolean isProductInCart(String productName) {
+//        TODO - please extract selector to a constant and use it here
+//        TODO consider using BasePage class and encapsulate all interaction with driver there,
+//         so you can reuse it in all pages
         return driver.findElements(By.xpath("//div[@class='cart_item']//div[text()='" + productName + "']")).size() > 0;
     }
 

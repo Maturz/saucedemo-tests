@@ -11,6 +11,7 @@ public class BaseTest {
     @BeforeMethod
     public void setUp(String browser) {
         DriverFactory.initDriver(browser);
+//        TODO Consider moving URL to config file, so we can easily change it without need to modify code
         DriverFactory.getDriver().get("https://www.saucedemo.com/");
     }
 

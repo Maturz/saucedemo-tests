@@ -1,4 +1,5 @@
 <suite name="Suite" parallel="tests" thread-count="2">
+<!--    TODO better run a suit against one browser and choose against which one with variables-->
     <test name="Chrome">
         <parameter name="browser" value="chrome"/>
         <classes>
