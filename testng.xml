@@ -1,15 +1,17 @@
+cat > testng.xml << 'EOF'
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite" parallel="tests" thread-count="2">
-    <test name="Firefox">
-        <parameter name="browser" value="firefox"/>
-        <classes>
-            <class name="tests.CheckoutOneItemTest"/>
-        </classes>
-    </test>
-    <test name="Chrome">
-        <parameter name="browser" value="chrome"/>
-        <classes>
-            <class name="tests.CheckoutOneItemTest"/>
-        </classes>
-    </test>
+<suite name="SauceDemo Suite" parallel="methods" thread-count="2">
+  <test name="All Browsers">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <package name="tests"/>
+    </classes>
+  </test>
+  <test name="Chrome Tests">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <package name="tests"/>
+    </classes>
+  </test>
 </suite>
+EOF
