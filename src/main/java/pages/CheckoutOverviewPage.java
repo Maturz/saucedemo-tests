@@ -7,6 +7,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
+public class CheckoutOverviewPage {
+    private static final By FINISH_BUTTON = By.id("finish");
+    private static final By ITEM_TOTAL_LABEL = By.xpath("//div[contains(@class, 'summary_subtotal_label')]");  
+public class CheckoutOverviewPage {  
 public class CheckoutOverviewPage {  
     
     private static final By FINISH_BUTTON = By.id("finish");
@@ -18,6 +22,8 @@ public class CheckoutOverviewPage {
     private final WebDriver driver;    
     private final WebDriverWait wait;   
 
+    public CheckoutOverviewPage(WebDriver driver) {
+    public CheckoutOverviewPage(WebDriver driver) {  
     public CheckoutOverviewPage(WebDriver driver) { 
         this.driver = driver;
         this.wait = new WebDriverWait(driver, TIMEOUT);
@@ -30,6 +36,7 @@ public class CheckoutOverviewPage {
         return Double.parseDouble(value);
     }
 
+    public void finish() {  // переименовал completeCheckout → finish
     public void finish() {  // finish() для CheckoutMultipleItemsTest
         wait.until(ExpectedConditions.elementToBeClickable(FINISH_BUTTON)).click();
     }
