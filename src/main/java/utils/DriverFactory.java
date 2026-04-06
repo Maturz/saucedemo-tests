@@ -9,22 +9,32 @@ public class DriverFactory {
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static void initDriver(String browser) {
-
-        if (browser.equalsIgnoreCase("chrome")) {
-            driver.set(new ChromeDriver());
-        } else if (browser.equalsIgnoreCase("firefox")) {
-            driver.set(new FirefoxDriver());
+        switch (browser.toLowerCase()) {
+            case "chrome":
+                driver.set(new ChromeDriver());
+                break;
+            case "firefox":
+                driver.set(new FirefoxDriver());
+                break;
+            default:
+                // ✅ TODO исправлено — исключение для неизвестного браузера
+                throw new IllegalArgumentException(
+                    String.format("Unsupported browser: '%s'. Supported: chrome, firefox", browser)
+                );
         }
-//        TODO Can we cover flow when user provides unsupported browser? Please consider throwing exception in such case, so we can easily identify issue in test execution logs
-
     }
 
     public static WebDriver getDriver() {
+        if (driver.get() == null) {
+            throw new IllegalStateException("Driver not initialized. Call initDriver() first.");
+        }
         return driver.get();
     }
 
     public static void quitDriver() {
-        driver.get().quit();
-        driver.remove();
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();
+        }
     }
 }
