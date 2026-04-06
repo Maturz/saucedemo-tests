@@ -3,3 +3,4 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+#TODO we shouldn't keep .idea, consider to remove it from the repo and add it to .gitignore
