@@ -13,7 +13,7 @@ public class CheckoutPage {
     private static final By LAST_NAME = By.id("last-name");
     private static final By ZIP_CODE = By.id("postal-code");
     private static final By CONTINUE_BUTTON = By.id("continue");
-    private static final Duration TIMEOUT = Duration.ofSeconds(20);
+    private static final Duration TIMEOUT = Duration.ofSeconds(25); // ✅ для Chrome
 
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -24,7 +24,7 @@ public class CheckoutPage {
     }
 
     public void fillForm() {
-        
+        // Chrome + Firefox OK
         WebElement firstNameField = wait.until(ExpectedConditions.elementToBeClickable(FIRST_NAME));
         firstNameField.click();
         firstNameField.clear();
