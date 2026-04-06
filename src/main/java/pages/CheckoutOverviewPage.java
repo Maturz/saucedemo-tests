@@ -30,7 +30,7 @@ public class CheckoutOverviewPage {
         return Double.parseDouble(value);
     }
 
-    
+
     public void completeCheckout() {
         wait.until(ExpectedConditions.elementToBeClickable(FINISH_BUTTON)).click();
     }
@@ -40,5 +40,4 @@ public class CheckoutOverviewPage {
                 ExpectedConditions.visibilityOfElementLocated(SUCCESS_HEADER)
         ).getText();
     }
-}
 }
