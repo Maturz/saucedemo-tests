@@ -19,3 +19,20 @@
         </classes>
     </test>
 </suite>
+cat > testng.xml << 'EOF'
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SauceDemo Suite" parallel="methods" thread-count="2">
+  <test name="All Browsers">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <package name="tests"/>
+    </classes>
+  </test>
+  <test name="Chrome Tests">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <package name="tests"/>
+    </classes>
+  </test>
+</suite>
+EOF
