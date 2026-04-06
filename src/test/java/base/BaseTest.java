@@ -1,7 +1,9 @@
 package base;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import utils.DriverFactory;
 
@@ -9,9 +11,8 @@ public class BaseTest {
 
     @Parameters("browser")
     @BeforeMethod
-    public void setUp(String browser) {
+    public void setUp(@Optional("firefox") String browser) {  
         DriverFactory.initDriver(browser);
-//        TODO Consider moving URL to config file, so we can easily change it without need to modify code
         DriverFactory.getDriver().get("https://www.saucedemo.com/");
     }
 
