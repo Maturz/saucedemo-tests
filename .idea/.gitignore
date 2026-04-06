@@ -3,4 +3,11 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+
+target/
+allure-results/
+allure-report/
+.idea/workspace.xml
+.idea/tasks.xml
+
 #TODO we shouldn't keep .idea, consider to remove it from the repo and add it to .gitignore
