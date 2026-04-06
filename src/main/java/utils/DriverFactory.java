@@ -26,12 +26,10 @@ public class DriverFactory {
         } else if (browser.equalsIgnoreCase("firefox")) {
             driver.set(new FirefoxDriver());
         } else {
-            // ✅ Copilot fix
             throw new IllegalArgumentException(
                 String.format("Unsupported browser: '%s'. Supported: chrome, firefox", browser)
             );
         }
-        // ✅ config.properties
         getDriver().get(config.getProperty("app.url", "https://www.saucedemo.com/"));
     }
 
