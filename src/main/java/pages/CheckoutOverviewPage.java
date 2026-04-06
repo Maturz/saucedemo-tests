@@ -10,14 +10,19 @@ import java.time.Duration;
 public class CheckoutOverviewPage {
     private static final By FINISH_BUTTON = By.id("finish");
     private static final By ITEM_TOTAL_LABEL = By.xpath("//div[contains(@class, 'summary_subtotal_label')]");  // ✅
+public class CheckoutOverviewPage {  // ✅ CheckoutOverviewPage (НЕ CheckoutPage!)
+    
+    private static final By FINISH_BUTTON = By.id("finish");
+    private static final By ITEM_TOTAL_LABEL = By.xpath("//div[contains(@class, 'summary_subtotal_label')]");  // ✅ XPath!
     private static final By SUCCESS_HEADER = By.className("complete-header");
     private static final String ITEM_TOTAL_PREFIX = "Item total: $";
     private static final Duration TIMEOUT = Duration.ofSeconds(30); 
 
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+    private final WebDriver driver;     // ✅ Добавлены поля
+    private final WebDriverWait wait;   // ✅
 
     public CheckoutOverviewPage(WebDriver driver) {
+    public CheckoutOverviewPage(WebDriver driver) {  // ✅ Конструктор
         this.driver = driver;
         this.wait = new WebDriverWait(driver, TIMEOUT);
     }
@@ -30,6 +35,7 @@ public class CheckoutOverviewPage {
     }
 
     public void finish() {  // переименовал completeCheckout → finish
+    public void finish() {  // finish() для CheckoutMultipleItemsTest
         wait.until(ExpectedConditions.elementToBeClickable(FINISH_BUTTON)).click();
     }
 
