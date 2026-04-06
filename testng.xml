@@ -1,17 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="tests" thread-count="2">
-<!--    TODO better run a suit against one browser and choose against which one with variables-->
-    <test name="Chrome">
-        <parameter name="browser" value="chrome"/>
-        <classes>
-            <class name="tests.CheckoutOneItemTest"/>
-            <class name="tests.CheckoutMultipleItemsTest"/>
-        </classes>
-    </test>
     <test name="Firefox">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="tests.CheckoutOneItemTest"/>
-            <class name="tests.CheckoutMultipleItemsTest"/>
+        </classes>
+    </test>
+    <test name="Chrome">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="tests.CheckoutOneItemTest"/>
         </classes>
     </test>
 </suite>
