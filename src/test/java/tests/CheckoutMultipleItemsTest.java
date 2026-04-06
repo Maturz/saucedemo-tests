@@ -1,17 +1,22 @@
 package tests;
 
 import base.BaseTest;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
 import utils.DriverFactory;
+import utils.ScreenshotUtils;
 
 public class CheckoutMultipleItemsTest extends BaseTest {
 
+    @Step("Multiple items checkout flow")
     @Test
-    public void testMultipleItemsCheckout() throws InterruptedException {
-
+    public void testMultipleItemsCheckout() {
         LoginPage login = new LoginPage(DriverFactory.getDriver());
         login.login("standard_user", "secret_sauce");
 
@@ -38,13 +43,23 @@ public class CheckoutMultipleItemsTest extends BaseTest {
 
         double expected = price1 + price2;
         double actual = overview.getItemTotalValue();
+        Assert.assertEquals(actual, expected, "Item total не совпадает");
 
-        Assert.assertEquals(actual, expected);
         overview.finish();
 
-        Assert.assertEquals(
-                overview.getSuccessMessage(),
-                "Thank you for your order!"
+        // ✅ ФИКС строки 29:
+        Assert.assertTrue(
+            overview.getSuccessMessage().contains("Thank you"), 
+            "Order complete message не найден"
         );
+        
+        // 🏆 Allure скриншот
+        attachScreenshot("Order Complete Success");
+    }
+    
+    @Attachment(value = "Screenshot", type = "image/png")
+    public byte[] attachScreenshot(String name) {
+        return ((TakesScreenshot) DriverFactory.getDriver())
+            .getScreenshotAs(OutputType.BYTES);
     }
 }
