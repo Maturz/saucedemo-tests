@@ -7,18 +7,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
-public class CheckoutOverviewPage {  // ✅ CheckoutOverviewPage (НЕ CheckoutPage!)
+public class CheckoutOverviewPage {  
     
     private static final By FINISH_BUTTON = By.id("finish");
-    private static final By ITEM_TOTAL_LABEL = By.xpath("//div[contains(@class, 'summary_subtotal_label')]");  // ✅ XPath!
+    private static final By ITEM_TOTAL_LABEL = By.xpath("//div[contains(@class, 'summary_subtotal_label')]");  
     private static final By SUCCESS_HEADER = By.className("complete-header");
     private static final String ITEM_TOTAL_PREFIX = "Item total: $";
     private static final Duration TIMEOUT = Duration.ofSeconds(30); 
 
-    private final WebDriver driver;     // ✅ Добавлены поля
-    private final WebDriverWait wait;   // ✅
+    private final WebDriver driver;    
+    private final WebDriverWait wait;   
 
-    public CheckoutOverviewPage(WebDriver driver) {  // ✅ Конструктор
+    public CheckoutOverviewPage(WebDriver driver) { 
         this.driver = driver;
         this.wait = new WebDriverWait(driver, TIMEOUT);
     }
