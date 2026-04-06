@@ -18,7 +18,6 @@ public class BaseTest {
         DriverFactory.initDriver(browser);
         DriverFactory.getDriver().get("https://www.saucedemo.com/");
         
-        // ✅ Инициализация page objects
         loginPage = new LoginPage(DriverFactory.getDriver());
         inventoryPage = new InventoryPage(DriverFactory.getDriver());
         cart = new CartPage(DriverFactory.getDriver());
