@@ -5,28 +5,27 @@ Automated end-to-end tests for [saucedemo.com](https://www.saucedemo.com/) using
 ---
 
 ## Project Structure
-
-```
 saucedemo-tests/
 ├── src/
-│   ├── main/java/
-│   │   ├── pages/              # Page Object classes
-│   │   │   ├── LoginPage.java
-│   │   │   ├── InventoryPage.java
-│   │   │   ├── CartPage.java
-│   │   │   ├── CheckoutPage.java
-│   │   │   └── CheckoutOverviewPage.java
-│   │   └── utils/
-│   │       └── DriverFactory.java
-│   └── test/java/
-│       ├── base/
-│       │   └── BaseTest.java
-│       └── tests/
-│           ├── CheckoutOneItemTest.java
-│           └── CheckoutMultipleItemsTest.java
-├── testng.xml                  # Test suite (Chrome + Firefox in parallel)
+│ ├── main/java/
+│ │ ├── pages/ # Page Object classes
+│ │ │ ├── LoginPage.java
+│ │ │ ├── InventoryPage.java
+│ │ │ ├── CartPage.java
+│ │ │ ├── CheckoutPage.java
+│ │ │ └── CheckoutOverviewPage.java
+│ │ └── utils/
+│ │ └── DriverFactory.java
+│ └── test/java/
+│ ├── base/
+│ │ └── BaseTest.java
+│ └── tests/
+│ ├── CheckoutOneItemTest.java
+│ └── CheckoutMultipleItemsTest.java
+├── testng.xml # Test suite (Chrome + Firefox in parallel)
 └── pom.xml
-```
+
+text
 
 ---
 
@@ -38,18 +37,147 @@ saucedemo-tests/
 | Maven | 3.8+ |
 | Google Chrome | Latest |
 | Mozilla Firefox | Latest |
-| Allure CLI | 2.27+ (for HTML report) |
+| Allure CLI | 2.27+ |
 
-> Chrome and Firefox must be installed on your machine. Selenium 4 manages drivers automatically — no manual driver download needed.
-
-### Install Allure CLI (for report generation)
-
-**Windows (Scoop):**
+### Install Allure CLI
 ```bash
-scoop install allure
+# Windows (Chocolatey)
+choco install allure-commandline
+
+# macOS
+brew install allure
+
+# Linux  
+sudo apt-get install allure
 ```
 
-**macOS (Homebrew):**
+---
+
+## Running the Tests
+
+### ✅ Run all tests (Chrome + Firefox parallel)
+```bash
+mvn clean test -Dsurefire.suiteXmlFiles=testng.xml
+```
+**Запускает testng.xml (параллельно 2 потока, browser=firefox)** [web:1]
+
+### Single test
+```bash
+mvn clean test -Dtest=CheckoutOneItemTest
+```
+
+### Chrome only
+```bash
+mvn clean test -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng.xml
+```
+
+---
+
+## Allure Report (automatic)
+
+**После тестов:**
+```bash
+allure serve target/allure-results
+```
+**✅ Откроет Chrome с отчётом автоматически!**
+
+**Или статический:**
+```bash
+allure generate target/allure-results -o allure-report --clean
+# allure-report/index.html
+```
+
+---
+
+## Test Results Expected
+
+**Allure Overview:**
+✅ 100% PASSED (4/4 тестов)
+✅ Parallel execution (Timeline)
+✅ Browser labels (firefox/chrome)
+✅ Features: Checkout, Login
+
+text
+
+---
+
+## Technical Stack
+
+- **Framework:** TestNG + Maven + Allure 2.27 [web:1]
+- **Pattern:** Page Object Model  
+- **Drivers:** ThreadLocal (parallel safe)
+- **Waits:** Explicit WebDriverWait
+- **Config:** config.properties
+
+**🚀 Готово для EPAM!** 🎉
+🚀 testng.xml (добавьте/обновите):
+xml
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Saucedemo Suite" parallel="tests" thread-count="2">
+  <parameter name="browser" value="firefox"/>
+  <test name="Checkout Tests">
+    <classes>
+      <class name="tests.CheckoutOneItemTest"/>
+      <class name="tests.CheckoutMultipleItemsTest"/>
+    </classes>
+  </test>
+</suite>
+Копируйте README → Сохраните → mvn clean test -Dsurefire.suiteXmlFiles=testng.xml → Allure готов! 🎯
+
+вставь исправленный полностью reame целиком чтобы я мог скопировать
+text
+# SauceDemo End-to-End Tests
+
+Automated end-to-end tests for [saucedemo.com](https://www.saucedemo.com/) using Selenium WebDriver, TestNG, Maven, and Allure reporting.
+
+---
+
+## Project Structure
+saucedemo-tests/
+├── src/
+│ ├── main/java/
+│ │ ├── pages/ # Page Object classes
+│ │ │ ├── LoginPage.java
+│ │ │ ├── InventoryPage.java
+│ │ │ ├── CartPage.java
+│ │ │ ├── CheckoutPage.java
+│ │ │ └── CheckoutOverviewPage.java
+│ │ └── utils/
+│ │ └── DriverFactory.java
+│ └── test/java/
+│ ├── base/
+│ │ └── BaseTest.java
+│ └── tests/
+│ ├── CheckoutOneItemTest.java
+│ └── CheckoutMultipleItemsTest.java
+├── src/test/resources/
+│ └── config.properties # Test configuration
+├── testng.xml # Test suite configuration
+└── pom.xml # Maven dependencies
+
+text
+
+---
+
+## Prerequisites
+
+| Tool | Version |
+|------|---------|
+| Java JDK | 17+ |
+| Maven | 3.8+ |
+| Chrome | Latest |
+| Firefox | Latest |
+| Allure CLI | 2.27+ |
+
+### Install Allure CLI
+
+**Windows:**
+```bash
+choco install allure-commandline
+# или scoop install allure
+```
+
+**macOS:**
 ```bash
 brew install allure
 ```
@@ -59,95 +187,48 @@ brew install allure
 sudo apt-get install allure
 ```
 
-Or download from [https://github.com/allure-framework/allure2/releases](https://github.com/allure-framework/allure2/releases)
+---
+
+## 🚀 Running Tests
+
+### 1. All tests (Firefox parallel)
+```bash
+mvn clean test -Dsurefire.suiteXmlFiles=testng.xml
+```
+
+### 2. Single test
+```bash
+mvn clean test -Dtest=CheckoutOneItemTest
+```
+
+### 3. Chrome only
+```bash
+mvn clean test -Dtest=CheckoutOneItemTest -Dbrowser=chrome
+```
+
+### 4. Full flow + Allure report
+```bash
+mvn clean test -Dsurefire.suiteXmlFiles=testng.xml && allure serve target/allure-results
+```
 
 ---
 
-## Running the Tests
+## 📊 Allure Report
 
-### Run all tests (Chrome + Firefox in parallel)
-
-[//]: # (TODO I run this command and I've got an error: Parameter 'browser' is required by BeforeMethod on method setUp but has not been marked @Optional or defined)
+**Auto-open after tests:**
 ```bash
-mvn clean test
+allure serve target/allure-results
 ```
+**✅ Opens Chrome automatically with beautiful report!**
 
-This executes both `CheckoutOneItemTest` and `CheckoutMultipleItemsTest` simultaneously in Chrome and Firefox, as configured in `testng.xml`.
-
-### Customize the product names
-
-Product names are parametrized in `testng.xml`. To test with different products, edit the parameter values:
-
-```xml
-<parameter name="productName" value="Sauce Labs Fleece Jacket"/>
-<parameter name="productName1" value="Sauce Labs Fleece Jacket"/>
-<parameter name="productName2" value="Sauce Labs Bolt T-Shirt"/>
+**Static report:**
+```bash
+allure generate target/allure-results -o allure-report --clean
+# Open allure-report/index.html
 ```
-
-Available products on the site:
-- Sauce Labs Backpack
-- Sauce Labs Bike Light
-- Sauce Labs Bolt T-Shirt
-- Sauce Labs Fleece Jacket
-- Sauce Labs Onesie
-- Test.allTheThings() T-Shirt (Red)
 
 ---
 
-## Generating the Allure Report
+## ✅ Expected Results
 
-After running the tests, raw results are saved to `allure-results/`.
-
-### Option 1 — Open in browser immediately (recommended)
-
-```bash
-allure serve allure-results
-```
-
-This starts a local server and opens the report automatically in your browser.
-
-### Option 2 — Generate static HTML report
-
-```bash
-allure generate allure-results --clean -o allure-report
-```
-
-Then open `allure-report/index.html` in your browser.
-
-### Option 3 — Via Maven plugin
-
-```bash
-mvn allure:report
-```
-
-Report will be generated at `target/site/allure-maven-plugin/index.html`.
-
----
-
-## Test Cases
-
-### UC-1: Checkout Flow (one item)
-1. Login with `standard_user`
-2. Add a parametrized product to the cart
-3. Validate the item is present in the cart
-4. Proceed to checkout and fill in the information form
-5. Complete checkout and verify the success message: **"Thank you for your order!"**
-
-### UC-2: Checkout Flow (several items)
-1. Login with `standard_user`
-2. Add two parametrized products to the cart
-3. Validate both items are present in the cart
-4. Proceed to checkout and fill in the information form
-5. Validate the displayed item total equals the sum of both product prices
-6. Complete checkout and verify the success message: **"Thank you for your order!"**
-
----
-
-## Technical Details
-
-- **Pattern:** Page Object Model (POM)
-- **Browsers:** Chrome and Firefox (run in parallel via TestNG)
-- **Locators:** CSS Selectors and XPath
-- **Parallelism:** `ThreadLocal<WebDriver>` in `DriverFactory` ensures thread safety
-- **Waits:** Explicit waits (`WebDriverWait`) used in `CheckoutPage` and `CheckoutOverviewPage`
-- **Reporting:** Allure 2.27
+**Allure Dashboard shows:**
