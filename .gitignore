@@ -64,3 +64,5 @@ build/
 ### Mac OS ###
 .DS_Store
 >>>>>>> dfba88e (solution is ready)
+allure-results/
+target/
