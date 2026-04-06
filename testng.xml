@@ -1,13 +1,17 @@
-<suite name="Suite" parallel="tests" thread-count="2">
-<!--    TODO better run a suit against one browser and choose against which one with variables-->
-    <test name="Chrome">
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Saucedemo Suite" parallel="tests" thread-count="2">
+    <!-- ✅ Copilot fix: исправлена опечатка + улучшена ясность -->
+    <!-- TODO: It may be better to run a suite for one browser at a time and choose the browser using variables. -->
+    
+    <test name="Chrome Tests">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="tests.CheckoutOneItemTest"/>
             <class name="tests.CheckoutMultipleItemsTest"/>
         </classes>
     </test>
-    <test name="Firefox">
+    
+    <test name="Firefox Tests">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="tests.CheckoutOneItemTest"/>
