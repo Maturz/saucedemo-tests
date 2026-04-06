@@ -2,23 +2,33 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CartPage {
+import java.time.Duration;
+import java.util.List;
 
-    WebDriver driver;
+public class CartPage extends BasePage {  // ✅ Наследуемся от BasePage
+    
+    private static final By CHECKOUT_BUTTON = By.id("checkout");
+    private static final By CART_ITEM_INVENTORY_ITEM_NAME = By.xpath("//div[@class='cart_item']//div[@class='inventory_item_name']");
+    
+    private static final Duration TIMEOUT = Duration.ofSeconds(10);
 
     public CartPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver, TIMEOUT);
     }
 
     public boolean isProductInCart(String productName) {
-//        TODO - please extract selector to a constant and use it here
-//        TODO consider using BasePage class and encapsulate all interaction with driver there,
-//         so you can reuse it in all pages
-        return driver.findElements(By.xpath("//div[@class='cart_item']//div[text()='" + productName + "']")).size() > 0;
+        // ✅ Константа + точный селектор saucedemo
+        List<WebElement> cartItems = driver.findElements(CART_ITEM_INVENTORY_ITEM_NAME);
+        return cartItems.stream()
+                .anyMatch(item -> item.getText().trim().equals(productName));
     }
 
-    public void clickCheckout() {
-        driver.findElement(By.id("checkout")).click();
+    public CheckoutPage clickCheckout() {
+        // ✅ Wait + click + Page Object
+        wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(CHECKOUT_BUTTON)).click();
+        return new CheckoutPage(driver);
     }
 }
