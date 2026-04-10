@@ -59,7 +59,7 @@ sudo apt-get install allure
 ```bash
 mvn clean test -Dsurefire.suiteXmlFiles=testng.xml
 ```
-**Запускает testng.xml (параллельно 2 потока, browser=firefox)** [web:1]
+
 
 ### Single test
 ```bash
@@ -79,7 +79,7 @@ mvn clean test -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng.xml
 ```bash
 allure serve target/allure-results
 ```
-**✅ Откроет Chrome с отчётом автоматически!**
+
 
 **Или статический:**
 ```bash
@@ -122,9 +122,8 @@ xml
     </classes>
   </test>
 </suite>
-Копируйте README → Сохраните → mvn clean test -Dsurefire.suiteXmlFiles=testng.xml → Allure готов! 🎯
 
-вставь исправленный полностью reame целиком чтобы я мог скопировать
+
 text
 # SauceDemo End-to-End Tests
 
@@ -219,7 +218,7 @@ mvn clean test -Dsurefire.suiteXmlFiles=testng.xml && allure serve target/allure
 ```bash
 allure serve target/allure-results
 ```
-**✅ Opens Chrome automatically with beautiful report!**
+
 
 **Static report:**
 ```bash
@@ -229,6 +228,6 @@ allure generate target/allure-results -o allure-report --clean
 
 ---
 
-## ✅ Expected Results
+
 
 **Allure Dashboard shows:**
